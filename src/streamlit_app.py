@@ -89,7 +89,6 @@ st.markdown("""
 
 # Header
 st.markdown('<h1 class="main-header">Airline Passenger Satisfaction Predictor</h1>', unsafe_allow_html=True)
-st.markdown('<div style="text-align: center; color: #64748b; margin-bottom: 2rem;"><strong>FDM Mini Project 2025 | Team Y3.S1.DS.01.01</strong></div>', unsafe_allow_html=True)
 
 # Introduction
 st.markdown("""
@@ -320,7 +319,5 @@ st.markdown("---")
 st.markdown("""
     <div style='text-align: center; color: #64748b; padding: 2rem;'>
         <p><strong>Airline Passenger Satisfaction Prediction System</strong></p>
-        <p>FDM Mini Project 2025 | Team Y3.S1.DS.01.01</p>
-        <p>Developed by: IT23185616, IT23409446, IT23398252, IT23409514</p>
     </div>
     """, unsafe_allow_html=True)
