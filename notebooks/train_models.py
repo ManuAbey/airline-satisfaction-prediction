@@ -91,33 +91,33 @@ print(confusion_matrix(y_test, y_pred_rf))
 
 
 
-# %%
-#Model 3
-from sklearn.svm import SVC
+# # %%
+# #Model 3
+# from sklearn.svm import SVC
 
-print("\n" + "="*50)
-print("MODEL 3: SUPPORT VECTOR MACHINE (SVM)")
-print("="*50)
+# print("\n" + "="*50)
+# print("MODEL 3: SUPPORT VECTOR MACHINE (SVM)")
+# print("="*50)
 
-# Train the model
-svm_model = SVC(kernel='rbf', probability=True, random_state=42)
-svm_model.fit(X_train_scaled, y_train)
+# # Train the model
+# svm_model = SVC(kernel='rbf', probability=True, random_state=42)
+# svm_model.fit(X_train_scaled, y_train)
 
 
 
-# %%
-#SVC
-# Make predictions
-y_pred_svm = svm_model.predict(X_test_scaled)
-y_pred_proba_svm = svm_model.predict_proba(X_test_scaled)[:, 1]
+# # %%
+# #SVC
+# # Make predictions
+# y_pred_svm = svm_model.predict(X_test_scaled)
+# y_pred_proba_svm = svm_model.predict_proba(X_test_scaled)[:, 1]
 
-# Evaluate the model
-print("\nAccuracy:", accuracy_score(y_test, y_pred_svm))
-print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_svm))
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred_svm))
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, y_pred_svm))
+# # Evaluate the model
+# print("\nAccuracy:", accuracy_score(y_test, y_pred_svm))
+# print("ROC-AUC Score:", roc_auc_score(y_test, y_pred_proba_svm))
+# print("\nClassification Report:")
+# print(classification_report(y_test, y_pred_svm))
+# print("\nConfusion Matrix:")
+# print(confusion_matrix(y_test, y_pred_svm))
 
 
 # %%
@@ -171,18 +171,18 @@ print(confusion_matrix(y_test, y_pred_knn))
 # %%
 # Create comparison dataframe
 results = pd.DataFrame({
-    'Model': ['Logistic Regression', 'Random Forest', 'SVM', 'Gradient Boosting', 'KNN'],
+    'Model': ['Logistic Regression', 'Random Forest', 'Gradient Boosting', 'KNN'],
     'Accuracy': [
         accuracy_score(y_test, y_pred_lr),
         accuracy_score(y_test, y_pred_rf),
-        accuracy_score(y_test, y_pred_svm),
+        #accuracy_score(y_test, y_pred_svm),
         accuracy_score(y_test, y_pred_gb),
         accuracy_score(y_test, y_pred_knn)
     ],
     'ROC-AUC': [
         roc_auc_score(y_test, y_pred_proba_lr),
         roc_auc_score(y_test, y_pred_proba_rf),
-        roc_auc_score(y_test, y_pred_proba_svm),
+        #roc_auc_score(y_test, y_pred_proba_svm),
         roc_auc_score(y_test, y_pred_proba_gb),
         roc_auc_score(y_test, y_pred_proba_knn)
     ]
@@ -197,4 +197,51 @@ print("="*50)
 # %%
 
 
+import joblib
+from pathlib import Path
 
+# Create models directory
+Path('models').mkdir(exist_ok=True)
+
+# Get the feature names from your processed data
+feature_names = df.drop(['satisfaction'], axis=1).columns.tolist()
+
+# Save the best model (Random Forest based on your results)
+joblib.dump(rf_model, 'models/best_model.pkl')
+print("✓ Model saved")
+
+# Save the scaler
+joblib.dump(scaler, 'models/scaler.pkl')
+print("✓ Scaler saved")
+
+# Save feature names (CRITICAL - must be in exact order)
+joblib.dump(feature_names, 'models/feature_names.pkl')
+print("✓ Feature names saved")
+
+# Save label mappings (how you encoded categories)
+label_mappings = {
+    'Gender': {'Female': 0, 'Male': 1},
+    'Customer Type': {'Loyal Customer': 0, 'disloyal Customer': 1},
+    'Type of Travel': {'Business travel': 0, 'Personal Travel': 1},
+    'Class': {'Business': 0, 'Eco': 1, 'Eco Plus': 2}
+}
+joblib.dump(label_mappings, 'models/label_mappings.pkl')
+print("✓ Label mappings saved")
+
+# Save model metadata
+metadata = {
+    'model_name': 'Random Forest',
+    'accuracy': accuracy_score(y_test, y_pred_rf),
+    'roc_auc': roc_auc_score(y_test, y_pred_proba_rf),
+    'n_features': len(feature_names),
+    'feature_names': feature_names,
+    'requires_scaling': False  # Random Forest doesn't need scaling
+}
+joblib.dump(metadata, 'models/model_metadata.pkl')
+print("✓ Metadata saved")
+
+print("\n" + "="*50)
+print("ALL MODEL ARTIFACTS SAVED SUCCESSFULLY")
+print("="*50)
+print(f"Features saved: {len(feature_names)}")
+print(f"Feature list: {feature_names}")

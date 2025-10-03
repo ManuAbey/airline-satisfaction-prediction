@@ -339,25 +339,122 @@ class AirlineSatisfactionPipeline:
         
         return comparison_df
 
+    
+    def save_model_and_artifacts(self, model_name='Random Forest', output_dir='models'):
+        """Save the trained model, scaler, and feature information"""
+        import joblib
+        from pathlib import Path
+        
+        print("\n" + "="*70)
+        print("SAVING MODEL AND ARTIFACTS")
+        print("="*70)
+        
+        # Create output directory
+        output_path = Path(output_dir)
+        output_path.mkdir(exist_ok=True)
+        
+        # Get the best model
+        model = self.models[model_name]
+        
+        # Save model
+        model_path = output_path / 'best_model.pkl'
+        joblib.dump(model, model_path)
+        print(f"✓ Model saved to {model_path}")
+        
+        # Save scaler
+        scaler_path = output_path / 'scaler.pkl'
+        joblib.dump(self.scaler, scaler_path)
+        print(f"✓ Scaler saved to {scaler_path}")
+        
+        # Save feature names
+        feature_names = list(self.df_processed.drop(['satisfaction'], axis=1).columns)
+        features_path = output_path / 'feature_names.pkl'
+        joblib.dump(feature_names, features_path)
+        print(f"✓ Feature names saved to {features_path}")
+        
+        # Save label encoder mappings
+        label_mappings = {
+            'Gender': {'Female': 0, 'Male': 1},
+            'Customer Type': {'Loyal Customer': 0, 'disloyal Customer': 1},
+            'Type of Travel': {'Business travel': 0, 'Personal Travel': 1},
+            'Class': {'Business': 0, 'Eco': 1, 'Eco Plus': 2}
+        }
+        mappings_path = output_path / 'label_mappings.pkl'
+        joblib.dump(label_mappings, mappings_path)
+        print(f"✓ Label mappings saved to {mappings_path}")
+        
+        # Save model metadata
+        metadata = {
+            'model_name': model_name,
+            'accuracy': self.results[model_name]['Accuracy'],
+            'roc_auc': self.results[model_name]['ROC-AUC'],
+            'n_features': len(feature_names),
+            'feature_names': feature_names,
+            'requires_scaling': model_name in ['Logistic Regression', 'SVM', 'KNN']
+        }
+        metadata_path = output_path / 'model_metadata.pkl'
+        joblib.dump(metadata, metadata_path)
+        print(f"✓ Model metadata saved to {metadata_path}")
+        
+        print("\n" + "="*70)
+        print("ALL ARTIFACTS SAVED SUCCESSFULLY")
+        print("="*70)
+        
+        return {
+            'model_path': str(model_path),
+            'scaler_path': str(scaler_path),
+            'features_path': str(features_path),
+            'mappings_path': str(mappings_path),
+            'metadata_path': str(metadata_path)
+        }
+
+    def run_complete_pipeline_with_save(self):
+        """Execute pipeline and save model artifacts"""
+        print("\n" + "="*70)
+        print("AIRLINE PASSENGER SATISFACTION PREDICTION SYSTEM")
+        print("FDM Mini Project 2025 - Team Y3.S1.DS.01.01")
+        print("="*70)
+        
+        self.load_data()
+        self.preprocess_data()
+        self.exploratory_analysis()
+        self.feature_selection()
+        self.split_data()
+        self.scale_features()
+        self.train_models()
+        comparison_df = self.compare_models()
+        
+        # Save the best model
+        best_model_name = comparison_df.iloc[0]['Model']
+        paths = self.save_model_and_artifacts(model_name=best_model_name)
+        
+        self.save_results()
+        
+        print("\n" + "="*70)
+        print("PIPELINE EXECUTION COMPLETED SUCCESSFULLY")
+        print("="*70)
+        
+        return comparison_df, paths
 
 # ==================== MAIN EXECUTION ====================
 
 def main():
-    """Main function to run the complete pipeline"""
+    """Main function to run the complete pipeline and save models"""
     
     # Initialize pipeline with your data path
-    data_path = 'data/raw/Airline.csv'  # Update this path
+    data_path = 'data/raw/Airline.csv'
     
     pipeline = AirlineSatisfactionPipeline(data_path)
     
-    # Run complete pipeline
-    results = pipeline.run_complete_pipeline()
+    # Run complete pipeline with model saving
+    results, model_paths = pipeline.run_complete_pipeline_with_save()
     
     print("\nPipeline execution completed!")
-    print("Check 'airline_results.csv' for processed data")
+    print("Check 'data/preprocessed/airline_results.csv' for processed data")
+    print("Check 'models/' directory for saved model artifacts")
     
-    return pipeline, results
+    return pipeline, results, model_paths
 
 
 if __name__ == "__main__":
-    pipeline, results = main()
+    pipeline, results, model_paths = main()
