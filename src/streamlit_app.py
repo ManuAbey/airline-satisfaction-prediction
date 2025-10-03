@@ -27,7 +27,7 @@ st.markdown("""
         text-align: center;
         padding: 1.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+        background: linear-gradient(135deg, #456996 0%, #ffffff 100%);
         border-radius: 10px;
         margin-bottom: 1rem;
     }
