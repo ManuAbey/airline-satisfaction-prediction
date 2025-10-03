@@ -23,31 +23,28 @@ st.markdown("""
     <style>
     .main-header {
         font-size: 2.8rem;
-        color: #1e3a5f;
+        color: #F1F1F1;
         text-align: center;
         padding: 1.5rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #456996 0%, #ffffff 100%);
+        background: radial-gradient(circle, #456996, #1b2a40);
         border-radius: 10px;
         margin-bottom: 1rem;
     }
     
     .section-header {
         font-size: 1.4rem;
-        color: #2c5282;
+        color: #F1F1F1;
         padding: 0.8rem;
         font-weight: 600;
-        border-left: 5px solid #4a90e2;
-        background-color: #f8fafc;
+        border-left: 8px solid #5c6978;
+        background: radial-gradient(circle, #456996, #1b2a40);
         margin: 1.5rem 0 1rem 0;
     }
     
     .info-box {
-        background-color: #e3f2fd;
-        border-left: 4px solid #4a90e2;
-        padding: 1rem;
-        border-radius: 5px;
-        margin: 1rem 0;
+        text-align:center;
+        color:#1e3a5f;
     }
     
     .stButton>button {
