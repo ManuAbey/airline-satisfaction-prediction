@@ -258,7 +258,7 @@ with st.form("prediction_form"):
         with col3:
             st.metric("Avg Service Score", f"{avg_service:.2f}/5")
         with col4:
-            st.metric("Total Delay", f"{int(delay_factor)} min")
+            st.metric("Average Delay", f"{int(delay_factor)} min")
         
         # Result message
         if prediction == "Satisfied":
