@@ -333,7 +333,7 @@ with st.form("prediction_form"):
         inflight = st.radio("Inflight Service", [1, 2, 3, 4, 5], index=2, horizontal=True)
         baggage = st.radio("Baggage Handling", [1, 2, 3, 4, 5], index=2, horizontal=True)
     
-    submitted = st.form_submit_button("🔮 Predict Satisfaction")
+    submitted = st.form_submit_button("🔮 Predict Satisfaction", use_container_width=True)
     
     if submitted:
         user_input = {
