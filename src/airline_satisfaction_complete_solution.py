@@ -235,13 +235,13 @@ class AirlineSatisfactionPipeline:
         self._evaluate_model('Random Forest', rf_model, self.X_test, self.y_test)
         
         # Model 3: SVM
-        print("\n" + "-"*50)
-        print("MODEL 3: SUPPORT VECTOR MACHINE")
-        print("-"*50)
-        svm_model = SVC(kernel='rbf', probability=True, random_state=42)
-        svm_model.fit(self.X_train_scaled, self.y_train)
-        self.models['SVM'] = svm_model
-        self._evaluate_model('SVM', svm_model, self.X_test_scaled, self.y_test)
+        # print("\n" + "-"*50)
+        # print("MODEL 3: SUPPORT VECTOR MACHINE")
+        # print("-"*50)
+        # svm_model = SVC(kernel='rbf', probability=True, random_state=42)
+        # svm_model.fit(self.X_train_scaled, self.y_train)
+        # self.models['SVM'] = svm_model
+        # self._evaluate_model('SVM', svm_model, self.X_test_scaled, self.y_test)
         
         # Model 4: Gradient Boosting
         print("\n" + "-"*50)
