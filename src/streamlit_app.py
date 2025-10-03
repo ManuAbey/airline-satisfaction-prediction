@@ -200,8 +200,8 @@ def preprocess_input(user_input, artifacts):
     # Numerical features
     features['Age'] = user_input['age']
     features['Flight Distance'] = user_input['flight_distance']
-    features['Departure Delay in Minutes'] = user_input['departure_delay']
-    features['Arrival Delay in Minutes'] = user_input['arrival_delay']
+    #features['Departure Delay in Minutes'] = user_input['departure_delay']
+    #features['Arrival Delay in Minutes'] = user_input['arrival_delay']
     
     # Service ratings
     features['Inflight wifi service'] = user_input['wifi']
@@ -298,13 +298,13 @@ with st.form("prediction_form"):
     with col3:
         flight_distance = st.number_input("Flight Distance (miles)", min_value=31, max_value=4983, value=1000)
     
-    st.markdown('<div class="section-header">Flight Delays</div>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
+    # st.markdown('<div class="section-header">Flight Delays</div>', unsafe_allow_html=True)
+    # col1, col2 = st.columns(2)
     
-    with col1:
-        departure_delay = st.number_input("Departure Delay (minutes)", min_value=0, max_value=1592, value=0)
-    with col2:
-        arrival_delay = st.number_input("Arrival Delay (minutes)", min_value=0, max_value=1584, value=0)
+    # with col1:
+    #     departure_delay = st.number_input("Departure Delay (minutes)", min_value=0, max_value=1592, value=0)
+    # with col2:
+    #     arrival_delay = st.number_input("Arrival Delay (minutes)", min_value=0, max_value=1584, value=0)
     
     st.markdown('<div class="section-header">Service Ratings (1=Poor, 5=Excellent)</div>', unsafe_allow_html=True)
     
@@ -339,8 +339,9 @@ with st.form("prediction_form"):
         user_input = {
             'gender': gender, 'age': age, 'customer_type': customer_type,
             'travel_type': travel_type, 'travel_class': travel_class,
-            'flight_distance': flight_distance, 'departure_delay': departure_delay,
-            'arrival_delay': arrival_delay, 'wifi': wifi, 'time_convenient': time_convenient,
+            'flight_distance': flight_distance, 
+            #'departure_delay': departure_delay,'arrival_delay': arrival_delay, 
+            'wifi': wifi, 'time_convenient': time_convenient,
             'booking': booking, 'gate': gate, 'food': food, 'boarding': boarding,
             'seat_comfort': seat_comfort, 'entertainment': entertainment,
             'onboard': onboard, 'legroom': legroom, 'baggage': baggage,
