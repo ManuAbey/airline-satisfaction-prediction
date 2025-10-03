@@ -23,7 +23,6 @@ st.markdown("""
     .stApp {
         background: linear-gradient(135deg, #1b2a40, #456996);
         background-attachment: fixed;
-        color: #f1f5f9;
     }
 
     .main-header {
@@ -58,36 +57,52 @@ st.markdown("""
         font-weight: 600;
     }
 
-    /* Radio labels */
+    /* Radio button labels and options */
     .stRadio label {
         color: #e2e8f0 !important;
         font-weight: 600;
     }
 
+    .stRadio div[role="radiogroup"] label {
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+
+    .stRadio [data-baseweb="radio"] > div {
+        color: #ffffff !important;
+    }
+
     /* Buttons */
-    .stButton>button {
-        background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
-        color: #1b2a40;
-        font-size: 1.1rem;
-        font-weight: 700;
-        padding: 0.75rem 2rem;
-        border-radius: 8px;
-        border: none;
+    .stButton>button, 
+    button[kind="primary"],
+    button[kind="secondary"] {
+        background: #facc15 !important;
+        background-image: linear-gradient(135deg, #facc15 0%, #eab308 100%) !important;
+        color: #1b2a40 !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        padding: 0.75rem 2rem !important;
+        border-radius: 8px !important;
+        border: none !important;
         width: 100%;
         margin-top: 1.5rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
         transition: all 0.2s ease-in-out;
     }
     
-    .stButton>button:hover {
-        background: linear-gradient(135deg, #eab308 0%, #facc15 100%);
-        color: #0f172a;
+    .stButton>button:hover,
+    button[kind="primary"]:hover,
+    button[kind="secondary"]:hover {
+        background: #eab308 !important;
+        background-image: linear-gradient(135deg, #eab308 0%, #facc15 100%) !important;
+        color: #0f172a !important;
         transform: scale(1.03);
     }
-
-    .stRadio label span  {
-        color: white !important;
-        font-weight: 600;
+    
+    .stButton>button:active,
+    button[kind="primary"]:active {
+        background: #eab308 !important;
+        color: #0f172a !important;
     }
 
     .stRadio [role="radio"] {
