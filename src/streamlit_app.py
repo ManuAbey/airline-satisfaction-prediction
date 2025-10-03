@@ -260,7 +260,7 @@ st.markdown("""
 with st.form("prediction_form"):
     
     # Passenger Information
-    st.markdown('<div class="section-header">👤 Passenger Information</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">Passenger Information</div>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
