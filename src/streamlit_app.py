@@ -123,7 +123,7 @@ st.markdown("""
     }
 
     [data-testid="stMetricValue"] {
-        color: #38bdf8; /* bright cyan */
+        color: #93c5fd; 
         font-weight: 700;
     }
 
@@ -132,7 +132,7 @@ st.markdown("""
     }
 
     .stSuccess {
-        color: #22c55e; /* green */
+        color: #18943b; /* green */
         font-weight: 600;
     }
     .stWarning {
@@ -144,7 +144,7 @@ st.markdown("""
         font-weight: 600;
     }
     .stInfo {
-        color: #60a5fa; /* light blue */
+        color: #b3cff2; /* light blue */
         font-weight: 600;
     }
     
@@ -418,7 +418,7 @@ with st.form("prediction_form"):
                 for name, score in high_scores:
                     st.success(f"**{name}**: {score}/5 - Excellent")
             else:
-                st.info("ℹ️ Room for improvement across services")
+                st.info("Room for improvement across services")
 
 st.markdown("---")
 st.markdown(f"""
