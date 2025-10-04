@@ -192,7 +192,7 @@ def preprocess_input(user_input, artifacts):
     features = {}
     
     # Encode categorical variables
-    features['Gender'] = label_mappings['Gender'][user_input['gender']]
+    #features['Gender'] = label_mappings['Gender'][user_input['gender']]
     features['Customer Type'] = label_mappings['Customer Type'][user_input['customer_type']]
     features['Type of Travel'] = label_mappings['Type of Travel'][user_input['travel_type']]
     features['Class'] = label_mappings['Class'][user_input['travel_class']]
@@ -208,7 +208,7 @@ def preprocess_input(user_input, artifacts):
     features['Departure/Arrival time convenient'] = user_input['time_convenient']
     features['Ease of Online booking'] = user_input['booking']
     features['Gate location'] = user_input['gate']
-    features['Food and drink'] = user_input['food']
+    #features['Food and drink'] = user_input['food']
     features['Online boarding'] = user_input['boarding']
     features['Seat comfort'] = user_input['seat_comfort']
     features['Inflight entertainment'] = user_input['entertainment']
@@ -222,7 +222,9 @@ def preprocess_input(user_input, artifacts):
     # Engineered features (if they exist)
     service_values = [
         user_input['wifi'], user_input['time_convenient'], user_input['booking'],
-        user_input['gate'], user_input['food'], user_input['boarding'],
+        user_input['gate'], 
+        #user_input['food'], 
+        user_input['boarding'],
         user_input['seat_comfort'], user_input['entertainment'], user_input['onboard'],
         user_input['legroom'], user_input['baggage'], user_input['checkin'],
         user_input['inflight'], user_input['cleanliness']
@@ -279,13 +281,13 @@ metadata = artifacts['metadata']
 with st.form("prediction_form"):
     
     st.markdown('<div class="section-header">Passenger Information</div>', unsafe_allow_html=True)
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
     
+    # with col1:
+    #     gender = st.selectbox("Gender", ["Male", "Female"])
     with col1:
-        gender = st.selectbox("Gender", ["Male", "Female"])
-    with col2:
         age = st.number_input("Age", min_value=7, max_value=85, value=40)
-    with col3:
+    with col2:
         customer_type = st.selectbox("Customer Type", ["Loyal Customer", "disloyal Customer"])
     
     st.markdown('<div class="section-header">Travel Details</div>', unsafe_allow_html=True)
@@ -323,7 +325,7 @@ with st.form("prediction_form"):
         seat_comfort = st.radio("Seat Comfort", [1, 2, 3, 4, 5], index=2, horizontal=True)
         legroom = st.radio("Leg Room", [1, 2, 3, 4, 5], index=2, horizontal=True)
         cleanliness = st.radio("Cleanliness", [1, 2, 3, 4, 5], index=2, horizontal=True)
-        food = st.radio("Food & Drink", [1, 2, 3, 4, 5], index=2, horizontal=True)
+        #food = st.radio("Food & Drink", [1, 2, 3, 4, 5], index=2, horizontal=True)
         time_convenient = st.radio("Time Convenient", [1, 2, 3, 4, 5], index=2, horizontal=True)
     
     with col3:
@@ -337,12 +339,15 @@ with st.form("prediction_form"):
     
     if submitted:
         user_input = {
-            'gender': gender, 'age': age, 'customer_type': customer_type,
+            #'gender': gender, 
+            'age': age, 'customer_type': customer_type,
             'travel_type': travel_type, 'travel_class': travel_class,
             'flight_distance': flight_distance, 
             #'departure_delay': departure_delay,'arrival_delay': arrival_delay, 
             'wifi': wifi, 'time_convenient': time_convenient,
-            'booking': booking, 'gate': gate, 'food': food, 'boarding': boarding,
+            'booking': booking, 'gate': gate, 
+            #'food': food, 
+            'boarding': boarding,
             'seat_comfort': seat_comfort, 'entertainment': entertainment,
             'onboard': onboard, 'legroom': legroom, 'baggage': baggage,
             'checkin': checkin, 'inflight': inflight, 'cleanliness': cleanliness
@@ -361,7 +366,9 @@ with st.form("prediction_form"):
         with col2:
             st.metric("Confidence", f"{confidence*100:.1f}%")
         with col3:
-            service_scores = [wifi, time_convenient, booking, gate, food, boarding,
+            service_scores = [wifi, time_convenient, booking, gate, 
+                              #food, 
+                              boarding,
                             seat_comfort, entertainment, onboard, legroom, baggage,
                             checkin, inflight, cleanliness]
             avg_service = np.mean(service_scores)
