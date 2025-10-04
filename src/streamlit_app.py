@@ -5,7 +5,7 @@ Airline Passenger Satisfaction Prediction - Streamlined Version
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
+# import plotly.express as px
 import joblib
 from pathlib import Path
 
