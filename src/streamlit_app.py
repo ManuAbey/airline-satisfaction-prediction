@@ -379,12 +379,12 @@ with st.form("prediction_form"):
             'Outcome': ['Dissatisfied', 'Satisfied'],
             'Probability': [proba[0]*100, proba[1]*100]
         })
-        fig = px.bar(prob_df, x='Outcome', y='Probability',
-                    color='Outcome',
-                    color_discrete_map={'Dissatisfied': '#e74c3c', 'Satisfied': '#2ecc71'},
-                    title='Prediction Probabilities')
-        fig.update_layout(showlegend=False, height=350)
-        st.plotly_chart(fig, use_container_width=True)
+        # fig = px.bar(prob_df, x='Outcome', y='Probability',
+        #             color='Outcome',
+        #             color_discrete_map={'Dissatisfied': '#e74c3c', 'Satisfied': '#2ecc71'},
+        #             title='Prediction Probabilities')
+        # fig.update_layout(showlegend=False, height=350)
+        # st.plotly_chart(fig, use_container_width=True)
         
         if prediction == "Satisfied":
             st.success("This passenger is predicted to be SATISFIED")
